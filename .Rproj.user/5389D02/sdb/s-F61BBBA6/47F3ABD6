@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"1700 Gene Panel Comparison\"\nauthor: \"Martin Bontrager\"\ndate: \"2017-01-25\"\noutput:\n  word_document: default\n  pdf_document: default\n  html_document:\n    theme: united\n---\n\nA comparison of which genes are on the 1714 gene panel vs. F1 gene list\n\n### Exon sequencing\n\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(fig.width=4.5, fig.height=3, echo=FALSE, warning=FALSE, \n                      message=FALSE, comment = NA)\nrequire(tidyverse)\nrequire(stringr)\n\npanel_1700 = read_tsv(\"~/Dropbox/Tempus/Projects/one_time/2016-12-15_panel_comparison/Michigan.List.postHGNCalias4.txt\", \n                      col_names = c(\"gene\"))\nf1_genes = read_csv(\"~/Dropbox/Tempus/Projects/panel/input_lists/F1_exon.csv\",\n                    skip = 1, \n                    col_names = FALSE)\nfh_genes = read_csv(\"~/Dropbox/Tempus/Projects/panel/input_lists/FH_exon.csv\", \n                    skip = 1, \n                    col_names = FALSE)\nf <- c(f1_genes$X1, fh_genes$X1)\n\nf = str_trim(unique(f1_genes$X1))\npanel_1700 = str_trim(unique(panel_1700$gene))\n\na = setdiff(f, panel_1700)\nb = setdiff(panel_1700, f)\n```\n\n\n\n```{r, include = FALSE}\nf <- as_data_frame(f) %>%\n    mutate(value = ifelse(value == \"MLL\", \"KMT2A\", value)) %>%\n    mutate(value = ifelse(value == \"INI1\", \"SMARCB1\", value)) %>%\n    mutate(value = ifelse(value == \"C11orf30\", \"EMSY\", value)) %>%\n    mutate(value = ifelse(value == \"c11orf30\", \"EMSY\", value)) %>%\n    mutate(value = ifelse(value == \"GPR124\", \"AGRA2\", value)) %>%\n    mutate(value = ifelse(value == \"MYCL1\", \"MYCL\", value)) %>%\n    mutate(value = ifelse(value == \"TEL\", \"ETV6\", value)) %>%\n    mutate(value = ifelse(value == \"C10orf5\", \"CASC2\", value)) %>%\n    mutate(value = ifelse(value == \"OX40\", \"TNFRSF4\", value)) %>%\n    mutate(value = ifelse(value == \"AGRA2\", \"ADGRA2\", value))\nf <- arrange(f)\nf <- f$value\n\nb = setdiff(f, panel_1700)\nb = sort(b)\nwrite_lines(b, \"~/Desktop/2017-01-25_fsolid_unique.csv\")\na <- setdiff(panel_1700, f)\nwrite_lines(a, \"~/Desktop/2017-01-25_xO_unique.csv\")\n```\n\n\nThere are **`r length(b)`** genes in the F1 gene list that are not on the 1700 gene panel:\n\n```{r}\nsetdiff(gene_list$value, panel_1700)\n```\n___",
+    "created" : 1485448965630.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "829651956",
+    "id" : "47F3ABD6",
+    "lastKnownWriteTime" : 1485385234,
+    "last_content_update" : 1485385234,
+    "path" : "~/Dropbox/Tempus/Projects/one_time/2016-12-15_panel_comparison/2017-01-25_panel_comparison.Rmd",
+    "project_path" : null,
+    "properties" : {
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

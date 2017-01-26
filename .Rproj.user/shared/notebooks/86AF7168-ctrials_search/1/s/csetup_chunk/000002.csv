@@ -1,0 +1,23 @@
+"0","knitr::opts_chunk$set(fig.width=4.5, fig.height=3, echo=TRUE, warning=FALSE, "
+"0","                      message=FALSE, comment = NA)"
+"0","require(tidyverse)"
+"2","Loading required package: tidyverse
+"
+"2","Loading tidyverse: ggplot2
+Loading tidyverse: tibble
+Loading tidyverse: tidyr
+Loading tidyverse: readr
+Loading tidyverse: purrr
+Loading tidyverse: dplyr
+"
+"2","Conflicts with tidy packages -----------------------------------------------------------------------------------
+"
+"2","filter(): dplyr, stats
+lag():    dplyr, stats
+"
+"0","require(stringr)"
+"2","Loading required package: stringr
+"
+"0","#library(devtools)"
+"0","#install_github(""sachsmc/rclinicaltrials"")"
+"0","require(rclinicaltrials)"

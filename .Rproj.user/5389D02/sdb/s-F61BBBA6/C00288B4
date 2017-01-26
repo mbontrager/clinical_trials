@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"Clinical Trials\"\nauthor: \"Martin Bontrager\"\ndate: \"1/26/2017\"\noutput: html_document\n---\n\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(fig.width=4.5, fig.height=3, echo=TRUE, warning=FALSE, \n                      message=FALSE, comment = NA)\nrequire(tidyverse)\nrequire(stringr)\n```\n\nI began this project by exploring the `rclinicaltrials` package, but honestly I'm not sure that it gets me much. I'd rather query clinicaltrials.gov directly and parse the results myself. So to get started doing that, I did a little exploration of clinicaltrials.gov. It's not the easist website in the world to pull data from, but it's also relatively painless and I can get back a lot of data. XML output for clinical trials searches can be downloaded directly by adding the `resultsxml=true` flag to a search URL. So for example, I searched with the following terms:\n\n> https://clinicaltrials.gov/ct2/results?term=cancer+OR+tumor+OR+tumour+OR+leukemia&recr=Open&type=Intr&locn=United+States\n\nwhich as of today returns ~6018 open, intervential clinical trials in the U.S. with the terms \"Cancer\" or \"tumor\"... etc. To pull a zipped xml output of all of those trials I can just pass:\n\n> https://clinicaltrials.gov/ct2/results?term=cancer+OR+tumor+OR+tumour+OR+leukemia&recr=Open&type=Intr&locn=United+States&resultsxml=true\n\nand that should initiate a zip file download which, when unzipped, contains one XML file per clinical trial. \n\n```{r}\nz <- clinicaltrials_search(query = 'breast+cancer')\nstr(z)\nclinicaltrials_count(query = c(\"type=Intr\", \"cond=cancer\", \"recr=Open\", \"locn=United States\"))\ny <- clinicaltrials_download(query = c(\"type=Intr\", \"cond=cancer\", \"recr=Open\", \"locn=United States\"), \n                             count = 10, \n                             include_results = TRUE)\n```\n\n",
+    "created" : 1485448957762.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1059842369",
+    "id" : "C00288B4",
+    "lastKnownWriteTime" : 1485453017,
+    "last_content_update" : 1485453017375,
+    "path" : "~/Dropbox/Tempus/compbio/clinical_trials/rmds/ctrials_search.Rmd",
+    "project_path" : "rmds/ctrials_search.Rmd",
+    "properties" : {
+        "last_setup_crc32" : "",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
